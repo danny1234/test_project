@@ -1,4 +1,6 @@
 TutorialApp::Application.routes.draw do
+  resources :sessions
+
   get "users/new"
   root to: 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
@@ -9,6 +11,11 @@ TutorialApp::Application.routes.draw do
   #get "static_pages/help"
   #get "static_pages/about"
   #get "static_pages/contact"
+
+  resources :sessions, only: [:new, :create, :destroy]
+  #match '/signup',  to: 'users#new',            via: 'get'
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   resources :microposts
 
